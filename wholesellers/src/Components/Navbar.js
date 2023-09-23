@@ -19,33 +19,43 @@ const Navbar = () => {
             url: '/contact',
             name: 'Contacts'
         }]
-    const [isOpen, setIsopen] = useState(true);
+    const [isOpen, setIsopen] = useState(false);
+    const ToggleMenu = () => {
+        setIsopen(!isOpen)
+    }
+
 
     return (
-        <nav className='flex  justify-between items-center px-10 py-3 text-xl sticky top-1'>
-            <div className="logo sm:text-lg md:text-xl px-4 py-2 text-sky-700 border-2 border-purple-700 shadow-lg text-center rounded-full">
-                <Link to='/'>
-                    WholeSellers
-                </Link>
+        <nav className='border-2 flex sm:flex-col md:flex-row md:justify-between md:items-center  border-black p-3'>
+            <div className='flex sm:justify-between  p-2'>
+
+                <div className="md:text-2xl text-xl border-2 shadow-xl border-purple-800 px-2 py-1 rounded-lg">
+                    <Link to='/'>
+                        WholeSellers
+                    </Link>
+                </div>
+
+                <button className='md:hidden block text-2xl' onClick={ToggleMenu}>{isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}</button>
             </div>
 
-            <button className='sm:block md:hidden sm:order-3 text-2xl' onClick={() => setIsopen(!isOpen)}>{isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}</button>
-            {
-                isOpen ? <ul className='md:space-x-10  sm:flex-col flex sm:mt-96 sm:border-2 md:border-none sm:p-10 md:p-0   md:mt-0 md:flex-row sm:space-y-10 md:space-y-0 md:w-96 absolute md:left-96 sm:right-2    '>
+            <div>
+
+                <ul className={` bg-purple-900 text-white md:text-inherit rounded-lg md:bg-inherit md:mt-0 mt-4 overflow-hidden transtion-max-height ease-in-out duration-300 ${isOpen ? 'max-h-96 pl-10 py-2' : 'max-h-0'} flex flex-col md:flex-row md:space-x-10 space-y-10 md:space-y-0 `}>
                     {links.map((link) => (
-                        <Link className='hover:text-purple-800' to={link.url} >{link.name}</Link>
+                        <Link className='text-xl hover:font-bold' to={link.url} >{link.name}</Link>
                     ))}
                 </ul>
-                    : null
-            }
-            <div className='flex items-center justify-center space-x-7  sm:order-2 text-2xl cursor-pointer border-2 px-3 py-2 rounded-md shadow-md '>
-                <Link to='/cart' className='hover:rounded-full border-2 p-2 rounded-md'>
+            </div>
+
+
+            <div className=' flex md:border-none border-2 border-black p-2 rounded text-2xl  space-x-7 justify-around  mt-2 md:mt-0 items-center'>
+                <Link to='/cart' className='hover:rounded-full border-2  border-black p-2 rounded-full md:rounded-md'>
                     <AiOutlineShoppingCart />
                 </Link>
-                <Link to='/user' className='hover:rounded-full border-2 p-2 rounded-md'>
+                <Link to='/user' className='hover:rounded-full border-2 border-black p-2 rounded-full md:rounded-md'>
                     <AiOutlineUser />
                 </Link>
-                <Link to='/search' className='hover:rounded-full border-2 p-2 rounded-md'>
+                <Link to='/search' className='hover:rounded-full border-2 border-black p-2 rounded-full md:rounded-md'>
                     <AiOutlineSearch />
                 </Link>
             </div>
